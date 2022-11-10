@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.LocalDate" %>
+<% 
+	// 현재 날짜
+	LocalDate today = LocalDate.now();
+ 	// 현재 날짜 시간 +1일 -> 내일날짜
+	LocalDateTime tomorrow = LocalDateTime.now().plusDays(1);
 
-</body>
-</html>
+%>

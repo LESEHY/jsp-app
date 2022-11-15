@@ -1,3 +1,4 @@
+
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -53,12 +54,19 @@
  	// 10. 성공메시지띄우기
  	out.println("DB연결 성공하였습니다!");
  	
- 	}
+ 	// 11. 연결해제하기
+//  	rs.close();
+//  	pstmt.close();
+ 	conn.close();
+ 	
+
+ 	} //// try /////
  	catch(Exception e) {
  		// DB연결 실패시 여기로 들어옴!
- 		e.printStackTrace();
- 		// 추적된 에러메시지 찍기
- 	}
+ 		out.println("에러메시지:");
+ 		out.println(e.toString());
+ 		// toString() 문자데이터로 변환하는 메서드
+ 	} ///// catch //////
  	
  	
  	

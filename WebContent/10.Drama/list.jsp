@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-   <%@ page import="java.sql.*"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- DB연결 객체 임포트 필수! -->
+<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,8 +31,9 @@
                     <th>방영횟수</th>
                 </tr>
             </thead>
+            
             <%
-            // 동적 데이터 바인딩 영역 // 
+            /////// 동적 데이터 바인딩 영역 //////////
             
             // POST 방식의 한글처리
             request.setCharacterEncoding("UTF-8");
@@ -45,7 +46,7 @@
              	// C:\Program Files\Apache Software Foundation
              	// \Tomcat 9.0\lib
              	// mysql-connector.jar 파일 이것!!!! 확인!
-             	// 다이나믹 웹 프로젝트에서는 WEB-INF>lib 폴더에 넣는다(관리용이)
+             	// 다이나믹 웹 프로젝트에서는 WEB-INF>lib 폴더에 넣는다!(관리용이)
              	
              	// 1. DB 연결 문자열값 만들기!
              	String DB_URL = "jdbc:mysql://localhost:3306/mydb";
@@ -73,6 +74,7 @@
              	
              	// 8. DB 종류 클래스 등록하기 -> 해당 연결 드라이브 로딩!
              	Class.forName("com.mysql.jdbc.Driver");
+             	// lib폴더의 jar파일과 연결!
              	
              	// 9. DB연결하기
              	conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PWD);
@@ -80,9 +82,48 @@
              	// 10. 성공메시지띄우기
              	out.println("DB연결 성공하였습니다!");
              	
+             	// 11. 쿼리문 연결 사용준비하기
+             	// conn연결된 DB객체
+             	pstmt = conn.prepareStatement(query);
+             	// prepareStatement(쿼리문변수)
+             	// - 쿼리문을 DB에 보낼 상태완료!
+             	// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
+             	
+             	// 12. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
+             	// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
+             	rs = pstmt.executeQuery();
+             	// executeQuery() 쿼리실행 메서드
+             	
+             	// 13. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기! 
+             	// 돌아주는 제어문은? while(조건){실행문}
+				// 레코드 유무 체크 메서드는? next()
+				// rs는 ResultSet 객체임!
+				// rs.next() -> 첫라인 다음라인이 있으면 true / 없으면 false!
+				// 첫 번째 라인은 항상 컬럼명이 첫 번째 라인이다!
+				// 따라서 다음라인이 있다는 것은 결과 레코드가 있다는 말!
+				
+				// 레코드 결과값 저장변수 
+				String result = "";
+				
+				// 결과셋에 레코드가 있는 동안 계속 순회함!
+				while(rs.next()){
+					result += 
+							"<tr>" +
+							"	<td>1</td>" +
+							"   <td><a href="#">"+
+							rs.getString("dname")+"</a></td>" +
+							"   <td>"+rs.getString("actors")+"</td>" +
+							"   <td>"+rs.getString("broad")+"</td>" +
+							"   <td>"+rs.getString("gubun")+"</td>" +
+							"   <td>"+rs.getString("stime")+"</td>" +
+							"   <td>"+rs.getString("total")+"</td>" +
+							"</tr>" ;
+				} // while
+				
+             	
              	// 11. 연결해제하기
-//              	rs.close();
-//              	pstmt.close();
+             	rs.close();
+             	pstmt.close();
              	conn.close();
              	
 
@@ -93,24 +134,16 @@
              		out.println(e.toString());
              		// toString() 문자데이터로 변환하는 메서드
              	} ///// catch //////
+             	
+             	
             
             
             
             %>
             
             <!-- 3.테이블 메인부분 -->
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><a href="#">경찰수업</a></td>
-                    <td>진영,차태현</td>
-                    <td>KBS2</td>
-                    <td>월화</td>
-                    <td>오후 09:30</td>
-                    <td>16부작</td>
-                </tr>
-                
-            </tbody>
+            <tbody></tbody>
+            
             <!-- 4.테이블 하단부분-->
             <tfoot>
                 <tr>

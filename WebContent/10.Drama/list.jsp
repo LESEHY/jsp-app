@@ -51,10 +51,96 @@
              	// mysql-connector.jar 파일 이것!!!! 확인!
              	// 다이나믹 웹 프로젝트에서는 WEB-INF>lib 폴더에 넣는다!(관리용이)
              	
+            	// 여러줄 주석: 컨쉬+슬래쉬
+            	/*
+            		[ JDBC 프로세스 ]
+            		- JAVA DataBase Connection
+            		
+            		1. DB연결하기 : java.sql.Connection 객체
+            			- 사용메서드: 
+            				DriverManager
+            				-> jdbc의 종류별 DB에 연결해주는 드라이버를 선별하는 객체
+            				-> DB 드라이버문자열은 Class객체의 forName()메서드에
+            				등록한 것을 읽어와서 연결객체를 셋팅한다!
+            				
+            				-> 연결전 드라이버 종류 셋업!
+            				Class.forName(DB종류별 드라이버문자열);-> 주문을 넣는다!
+            				-> MySQL은 "com.mysql.jdbc.Driver" 사용!
+            				
+            				드라어버 셋업 후
+            				결국 사용할 메서드는?
+            				DriverManager
+            				.getConnection(DB연결문자열,DB계정아이디,DB계정비번);
+            				
+            				get 가져와!
+            				Connection 연결을!
+            				->>> 메모리상에 목적한 DB와 연결된 시스템 장치가 셋팅된다!
+            				정확히는 DB와 통신망이 열렸다!!!
+            		
+            		2. 쿼리구성하기 :
+            			-> 우선 유효성이 확인된 쿼리문을 String형(문자형)으로 할당해 둔다!
+            			-> java.sql.PreparedStatement 객체가 이것을 가져간다!
+            			-> 쿼리를 가져가는 메서드는?
+            					Connection객체 하위의 메서드인
+            					prepareStatement(쿼리문)으로 호출하여
+            					결과값을 PreparedStatement객체에 담는다!!!
+            					
+            					->> 이름주의! prepareStatement()            					
+            		
+            		3. 쿼리실행과 결과값 받기
+            		
+            			-> 쿼리실행 메서드는 
+            			java.sql.PreparedStatement 객체가 가진다!
+            			
+            			Prepared 준비된
+            			Statement 진술,서술 -> 쿼리문
+            			
+            			-> executeQuery() 이미 셋팅된 쿼리를 DB에 실행한다!
+            			execute 실행하라!
+            			Query -> 쿼리를
+            			-> executeQuery() 메서드는 DB의 쿼리결과를 리턴한다!
+            			
+            			이 결과를 누가 담는가?????
+            					
+          			java.sql.ResultSet 객체다!
+          			-> 결과값을 집합의 형태로 마치 배열과 같이 레코드들을 저장함!
+          			-> next() 메서드로 담겨진 레코드를 순회할 수 있다!
+          			-> 결과적으로 하나씩 값을 돌아다니며 찍는다!
+          			-> 하나의 레코드 안에서 각 컬럼명을 DB에 셋팅된 이름으로 가져올 수 있다!
+            		-> 방법: 데이터 형에 따라 get데이터형(컬럼명) 형태로 접근한다!
+            		예) 
+						-> ResultSet 을 변수에 선언과 할당 후
+							ResultSet rs = null;
+						-> String 형이고 컬럼명이 "name"이면
+            				rs.getString("name")
+            			-> int형이고 컬럼명이 "idx"이면
+            				rs.getInt("idx")
+            			-> boolean형이고 컬럼명이 "yorn"이면
+            				rs.getBoolean("yorn")
+            				
+            		4. 연결닫기 : 메모리 해제를 위해 모든 연결을 닫아준다!
+            			-> close() 메서드 사용!
+            			
+            			1) Connection 객체 닫기 
+            			Connection conn;
+            			conn.close();
+            			
+            			2) PreparedStatement 객체 닫기 
+            			PreparedStatement pstmt;
+            			pstmt.close();
+            			
+            			3) ResultSet 객체 닫기 
+            			ResultSet rs;
+            			rs.close();
+            	*/
+            
              	// 1. DB 연결 문자열값 만들기!
              	String DB_URL = "jdbc:mysql://localhost:3306/mydb";
              	// 형식 -> jdbc:db시스템종류://db아이피/db이름
              	// MySQL -> jdbc:mysql://localhost:3306/mydb
+             	
+             	// 참고) 오라클 JDBC 드라이버 로드 문자열
+				// Oracle -> jdbc:oracle:thin:@localhost:1521:xe
              	
              	// 2. DB 아이디계정 : root는 슈퍼어드민 기본계정임
              	String DB_USER = "root";
@@ -97,46 +183,48 @@
              	rs = pstmt.executeQuery();
              	// executeQuery() 쿼리실행 메서드
              	
-             	// 13. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기! 
+          
+             	// 13. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기!
              	// 돌아주는 제어문은? while(조건){실행문}
-				// 레코드 유무 체크 메서드는? next()
-				// rs는 ResultSet 객체임!
-				// rs.next() -> 첫라인 다음라인이 있으면 true / 없으면 false!
-				// 첫 번째 라인은 항상 컬럼명이 첫 번째 라인이다!
-				// 따라서 다음라인이 있다는 것은 결과 레코드가 있다는 말!
-
-				// 일련번호용 변수
-				int listNum = 1;
-				
-				
-				// 결과셋에 레코드가 있는 동안 계속 순회함!
-				// rs.getString(컬럼명)
-				// -> 문자형일 경우 getString(), 숫자형은 getInt()
-				// -> 컬럼명은 DB 테이블에 실제로 생성된 컬럼명이다!
-				while(rs.next()){
-					// += 대입연산자로 기존값에 계속 더함!
-					result += 
-							"<tr>" +
-							"	<td>"+listNum+"</td>" +
-							// "	<td>"+rs.getInt("idx")+"</td>" +
-							// 일련번호는 DB의 idx 기본키를 쓰지 않고
-							// 반복되는 동안 순번을 만들어서 사용한다!
-							"   <td><a href='#'>"+
-							rs.getString("dname")+"</a></td>" +
-							"   <td>"+rs.getString("actors")+"</td>" +
-							"   <td>"+rs.getString("broad")+"</td>" +
-							"   <td>"+rs.getString("gubun")+"</td>" +
-							"   <td>"+rs.getString("stime")+"</td>" +
-							"   <td>"+rs.getString("total")+"</td>" +
-							"</tr>" ;
-							
-							// 일련번호 증가
-							listNum++;
-				} // while
-					
-				// 결과화면 출력
-// 				out.println(result);
-				
+             	// 레코드 유무 체크 메서드는? next()
+             	// rs는 ResultSet 객체임!!!
+             	// rs.next() -> 첫라인 다음라인이 있으면 true / 없으면 false!
+             	// 첫번째 라인은 항상 컬럼명이 첫번째 라인이다!
+             	// 따라서 다음라인이 있다는 것은 결과 레코드가 있다는 말!!!
+             	
+             	// 일련번호용 변수
+             	int listNum = 1;
+             	             	
+             	/// 결과셋에 레코드가 있는 동안 계속 순회함!
+             	// rs.getString(컬럼명)
+             	// -> 문자형일 경우 getString(), 숫자형은 getInt()
+             	// -> 컬럼명은 DB 테이블에 실제로 생성된 컬럼명이다!
+             	while(rs.next()){
+             		// += 대입연산자로 기존값에 계속 더함!
+             		result += 
+             				"<tr>"+
+             				"   <td>"+listNum+"</td>"+
+             				// "   <td>"+rs.getInt("idx")+"</td>"+
+             				// 일련번호는 DB의 idx 기본키를 쓰지 않고
+             				// 반복되는 동안 순번을 만들어서 사용한다!
+             				"   <td><a href='#'>"+
+             				rs.getString("dname")+"</a></td>"+
+             				"   <td>"+rs.getString("actors")+"</td>"+
+             				"   <td>"+rs.getString("broad")+"</td>"+
+             				"   <td>"+rs.getString("gubun")+"</td>"+
+             				"   <td>"+rs.getString("stime")+"</td>"+
+             				"   <td>"+rs.getString("total")+"</td>"+
+             				"</tr>";
+             				
+             				// 일련번호증가
+             				listNum++;
+             		
+             	} //////////// while //////////////
+             	
+            // 결과화면출력 	
+//    out.println(result);
+                            
+            
              	
              	// 11. 연결해제하기
              	rs.close();
@@ -152,7 +240,8 @@
              		// toString() 문자데이터로 변환하는 메서드
              	} ///// catch //////
              	
-            //////////////////////////////////
+             	
+            /////////////////////////////////////////////////
             %>
             
             <!-- 3.테이블 메인부분 -->
@@ -176,6 +265,12 @@
                 </tr>
             </tfoot>
         </table>
+        
+        <!-- 입력페이지 이동버튼 -->
+        <div class="gubun" onclick="location.href='insert.jsp'" 
+        style="text-align:right; padding:20px 0;">
+        	<button>입력하기</button>
+        </div>
 
         <!-- 구분테이블 박스 -->
         <div class="gubun">

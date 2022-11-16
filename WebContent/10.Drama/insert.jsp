@@ -9,11 +9,11 @@
     <style>
         body{
             text-align: center;
-            font-size: 24px;
         }
-        body,input{
-        	font-size: 30px;
+        body, input {
+        	font-size: 26px;
         }
+        
         label{
             display: block;
             margin: 25px 0;

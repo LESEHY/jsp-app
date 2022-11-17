@@ -120,19 +120,22 @@
      		"location.href='../list.jsp';"+		
      		"</script>"
      	);
-     	// [ 입력시 한글 깨짐 문제발생 해결 ]
-     	// -> 입력 성공 후 한글이 물음표(?)로 입력된 경우 원인은?
-     	// DB 살펴보면 UTF8_general_ci 형식으로 잘 만들어져있음!
-     	// 원인은 MySQL 환경설정파일에 있다!!
-     	// XAMPP 파일에 config버튼 클릭시 my.ini파일에서 "utf" 검색
-     	// 결과: utf8mb4 가 설정되어 있음 이것을 모두 utf8
      	
-     	// 아래 3가지를 변경함!
+     	// [ 입력시 한글 깨짐 문제발생 해결 ]
+     	// -> 입력성공후 한글이 물음표(?)로 입력된 경우 원인은?
+     	// DB를 살펴보면 utf8_general_ci 형식으로 잘 만들어져있음!
+     	// 원인은 MySQL 환경설정파일에 있다!!!
+     	
+     	// XAMPP 패널에 config버튼 클릭시 my.ini파일에서 "utf"검색
+     	// 결과: utf8mb4 가 설정되어 있음 이것을 모두 utf8로 변경함!
+     	// 참고주의) #이 앞에 있는 문장은 주석문이므로 고칠필요가 없다!
+     	
+     	// [아래 3가지를 변경함!]
      	// default-character-set=utf8
      	// character-set-server=utf8
      	// collation-server=utf8_general_ci
      	
-     	// 변경 후 반드시 MySQL 서버를 내렸다 올려야 my.ini를 다시 읽는다!
+     	// 변경후 반드시 MySQL 서버를 내렸다 올려야 my.ini를 다시 읽는다!
      	
      	// 실제 my.ini 위치는
      	// C:\xampp\mysql\bin\my.ini

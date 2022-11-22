@@ -51,6 +51,9 @@ public class JDBConnector {
 			if(rs != null) rs.close();
 			
 		} // try
-	} // close
+		catch (Exception e) {
+			e.printStackTrace();
+		} // catch
+	} // close 메서드
 	
 } // class JDBConnector 클래스

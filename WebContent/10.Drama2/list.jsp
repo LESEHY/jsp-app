@@ -114,8 +114,6 @@
 			// 결과화면출력 	
 			//    out.println(result);
 
-			
-
 			// 16. 연결해제하기
 			jdbc.close();
 

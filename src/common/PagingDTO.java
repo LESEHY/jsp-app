@@ -4,7 +4,8 @@ package common;
 // DTO - Data Transfer Object의 줄임말로
 // 데이터 캡슐화의 겟터,셋터가 있는 클래스를 부르는 말임!
 public class PagingDTO {
-
+	
+	
 	// ***** 페이징 변수 ****** 
 	// 1.시작 레코드번호 : LIMIT의 시작값
 	private int startNum;

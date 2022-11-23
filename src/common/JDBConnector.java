@@ -5,27 +5,24 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-// DB 연결 관련 객체 import하기
+// DB관련 객체 import하기
 
 public class JDBConnector {
-	// 4. 연결객체 선언
-	public Connection conn;
-	// 5. 쿼리문 저장객체
-	public PreparedStatement pstmt;
-	// 6. 결과저장 객체
+	// 1. 연결객체 선언
+	public Connection conn;	
+	// 2. 쿼리문 저장객체
+	public PreparedStatement pstmt;	
+	// 3. 결과저장 객체
 	public ResultSet rs;
 	
 	// 생성자 메서드
 	public JDBConnector() {
 		try {
 			System.out.println("나는 처음자바야!");
-			
 			// 1. DB 연결 문자열값 만들기!
 			String DB_URL = "jdbc:mysql://localhost:3306/mydb";
-			
 			// 2. DB 아이디계정 : root는 슈퍼어드민 기본계정임
 			String DB_USER = "root";
-			
 			// 3. DB 비밀번호 : root는 최초에 비밀번호가 없음
 			String DB_PWD = "";
 			
@@ -37,23 +34,24 @@ public class JDBConnector {
 			
 			// 10. 성공메시지띄우기
 			System.out.println("DB연결 성공하였습니다!");
-		} // try
+		} /////// try ////////////////
 		catch (Exception e) {
 			e.printStackTrace();
-		} // catch
-	} // JDBConnector 생성자 메서드
+		} //// catch ////////
+	} ////// 생성자 메서드 /////
 	
-	// 연결 해제 메서드
+	// 연결 해제 메서드 ///////
 	public void close() {
 		try {
 			if(conn != null) conn.close();
 			if(pstmt != null) pstmt.close();
 			if(rs != null) rs.close();
-			
-		} // try
+		} /// try ///
 		catch (Exception e) {
 			e.printStackTrace();
-		} // catch
-	} // close 메서드
+		} /// catch ///
+	} /////// close 메서드 ///////////
 	
-} // class JDBConnector 클래스
+	
+	
+} //////// 클래스 /////////

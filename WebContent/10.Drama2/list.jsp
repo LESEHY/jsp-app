@@ -68,7 +68,13 @@
 			/**************************************** 
 			[ 페이징 변수처리전 페이지번호로 시작번호 변경하기 ]
 			*****************************************/
-			pg.changeStartNum(pgNum);
+			// startNum을 변경하는 것이므로 setStartNum()으로 변경함!
+			// DB쿼리에서 limit 시작번호다!
+			pgdto.setStartNum(pg.changeStartNum(pgNum));
+			
+			// pageSeq 변수 초기 셋팅 필수!(파라미터값으로 셋팅!)
+			// 각 페이지별 시작번호를 맞춰준다!
+			pgdto.setPageSeq(Integer.parseInt(pgNum));
 
 			/****************************************
 				12. 페이징 변수 처리하기
@@ -94,8 +100,13 @@
 			// 일련번호용 변수
 			// 페이지에 따른 시작일련번호 구하기
 			int listNum = 1;
-			if (pgdto.getPageSeq() != 1)
-				listNum = (pgdto.getPageSeq() - 1) * pgdto.getOnePageCnt() + 1;
+			if (pgdto.getPageSeq() != 1){
+				listNum = 
+				(pgdto.getPageSeq() - 1) * pgdto.getOnePageCnt() + 1;				
+				// (현재 페이지 번호 - 1) * 한 페이지당 개수 + 1 
+			} // if 
+			
+			// 예시 계산 : 
 			// (2-1) * 3 + 1 = 4
 			// (3-1) * 3 + 1 = 7
 			// (4-1) * 3 + 1 = 10

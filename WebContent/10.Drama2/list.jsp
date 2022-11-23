@@ -59,8 +59,7 @@
 		<!-- 4.테이블 하단부분-->
 		<tfoot>
 			<tr>
-				<td colspan="7">◀  ▶
-				</td>
+				<td colspan="7">◀ <%=listcon.setPaging()%> ▶</td>
 			</tr>
 		</tfoot>
 	</table>

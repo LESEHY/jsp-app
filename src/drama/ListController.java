@@ -3,8 +3,10 @@ package drama;
 import common.JDBConnector;
 import common.Paging;
 import common.PagingDTO;
+/////////////////////////////////////
+// MVC 모델에서 컨트롤러 역할을 하는 클래스//
+/////////////////////////////////////
 
-// MVC 모델에서 컨트롤러 역할을 하는 클래스
 // 역할: DB관련 작업 및 비즈니스 로직 수행, 뷰생성
 // 모델(Model) : DB작업, 비즈니스 로직 모듈
 // 뷰(View) : 화면에 정보를 구성하는 모듈
@@ -131,5 +133,20 @@ public class ListController {
 		return result;
 		
 	} // setList 메서드
+	
+	/////////////////////////////////////////
+	// 페이징 코드 생성 메서드를 중계해 주는 메서드 //
+	////////////////////////////////////////
+	public String setPaging() {
+		// 페이징 클래스의 페이징 코드 생성 메서드를 호출
+		// 그 결과값을 리턴한다!
+		
+		return pg.makePaging();
+	} // setPaging 메서드
+	
+	
+	
+	
+	
 
 } // 클래스

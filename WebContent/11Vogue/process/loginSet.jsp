@@ -64,12 +64,37 @@
 			name = jdbc.rs.getString("name");
 			// 3. 권한
 			auth = jdbc.rs.getString("auth");
-		} //////////// while //////////////
+			// *******************************************
+			
+			// *******************************************
+			// 비밀번호 비교를 위해 입력한 비밀번호를 암호화
+			String shampw = sha.encSha256(mpw);
+			// ********************************************
+			out.println(
+               "<h1>" +
+               "♣ 입력아이디 : " + mid + "<br>" +
+               "♣ 디비비번 : " + dbmpw + "<br>" +
+               "♣ 변환비번 : " + shampw + "<br>" +
+               "♣ 입력비번 : " + mpw + "<br>" +
+               "♣ 디비이름 : " + name + "<br>" +
+               "♣ 디비권한 : " + auth + "</h1>"
+            );
+			
+			// 입력된 비밀번호 암호화 후 DB비밀번호와 비교한다! 
+			if(dbmpw.equals(shampw)){
+				out.print("<h1>비밀번호가 일치합니다!</h1>");
+			} // if
+			else{
+				out.print("<h1>비밀번호가 일치하지 않습니다!</h1>");
+			}
+			
+		} //if
+		else{
+			out.print("<h1>id가 존재하지 않습니다!</h1>");
+		} // else
 
 		// 14. 연결해제하기
-		rs.close();
-		pstmt.close();
-		conn.close();
+		jdbc.close();
 
 	} //// try /////
 	catch (Exception e) {

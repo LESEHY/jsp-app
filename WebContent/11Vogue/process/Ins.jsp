@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ page import="common.JDBConnector" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +12,9 @@
 	<%
 	//POST 방식의 한글처리 : 이것 안쓰면 한글깨짐!!!
 	request.setCharacterEncoding("UTF-8");
+	
+	// DB 연결 객체 생성
+	JDBConnector jdbc = new JDBConnector();
 	
 	try{
 		
@@ -44,16 +49,16 @@
 		
 		
      	// 7. 쿼리문작성 할당
-     	String query = "INSERT INTO `drama_info`" +
-     	"(`dname`, `actors`, `broad`, `gubun`, `stime`, `total`)"+ 
-     	" VALUES (?,?,?,?,?,?)";
+     	String query = "INSERT INTO `member` "+
+        "(`mid`, `mpw`, `name`, `gen`, `email1`, `email2`) "+
+        "VALUES (?,?,?,?,?,?)";
      	// 쿼리문작성시 삽입될 데이터 부분을 물음표(?)로 처리하면
      	// PreparedStatement 객체에서 이부분을 입력하도록 해준다!
      	
      	
      	// 11. 쿼리문 연결 사용준비하기
      	// conn연결된 DB객체
-     	pstmt = conn.prepareStatement(query);
+     	jdbc.pstmt = jdbc.conn.prepareStatement(query);
      	// prepareStatement(쿼리문변수)
      	// - 쿼리문을 DB에 보낼 상태완료!
      	// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
@@ -63,32 +68,31 @@
      	// 순번은 1부터 시작!
      	// 데이터형이름은 대문자로 시작
      	// 예) setString(), setInt(), setDouble(),...
-     	pstmt.setString(1, dname);
-     	pstmt.setString(2, actors);
-     	pstmt.setString(3, broad);
-     	pstmt.setString(4, gubun);
-     	pstmt.setString(5, stime);
-     	pstmt.setString(6, total);
+     	jdbc.pstmt.setString(1, mid);
+     	jdbc.pstmt.setString(2, mpw);
+     	jdbc.pstmt.setString(3, mnm);
+     	jdbc.pstmt.setString(4, gen);
+     	jdbc.pstmt.setString(5, email1);
+     	jdbc.pstmt.setString(6, email2);
      	// 물음표 순서대로 값을 셋팅해 준다!
      	
      	// 13. 쿼리를 DB에 전송하여 실행한다.
-     	pstmt.executeUpdate(); // insert문을 실행하는 메서드는?
+     	jdbc.pstmt.executeUpdate(); // insert문을 실행하는 메서드는?
      	// executeQuery() 쿼리실행 메서드 -> select 데이터셋을 가져옴
 		// executeUpdate() 쿼리실행 메서드 -> insert문을 실행함     	
   
      	// 14. 연결해제하기
-     	pstmt.close();
-     	conn.close();
-     	// rs.close(); 필요없음!
+     	jdbc.close();
+     
      	
      	// 15. 입력성공시 메시지 띄우기
      	// JS alert창 띄우고 확인시 list페이지로 돌아가기!
-     	out.println(
-     		"<script>"+		
-     		"alert('저장성공!');"+		
-     		"location.href='../list.jsp';"+		
-     		"</script>"
-     	);
+//      	out.println(
+//      		"<script>"+		
+//      		"alert('저장성공!');"+		
+//      		"location.href='../list.jsp';"+		
+//      		"</script>"
+//      	);
      	
      	// [ 입력시 한글 깨짐 문제발생 해결 ]
      	// -> 입력성공후 한글이 물음표(?)로 입력된 경우 원인은?

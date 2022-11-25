@@ -49,7 +49,7 @@
                 </header>
                 <!-- 2-2. 갤러리 페이지 컨텐츠 박스 -->
                 <section class="scont">
-                    <form action="process./ins.jsp" method="post" class="logF">
+                    <form action="process/Ins.jsp" method="post" class="logF">
                         <ul>
                             <!-- 아이디 -->
                             <li>
@@ -77,30 +77,46 @@
                             </li>
                             <!-- 비밀번호확인 -->
                             <li>
-                                <label for="mpw2" class="itit">비밀번호확인</label>
-                                <input type="password" name="mpw2" id="mpw2" maxlength="20" placeholder="비밀번호확인을 입력해 주세요!"/>
+                                <label for="mpw2" class="itit"
+                                    >비밀번호확인</label
+                                >
+                                <input
+                                    type="password"
+                                    name="mpw2"
+                                    id="mpw2"
+                                    maxlength="20"
+                                    placeholder="비밀번호확인을 입력해 주세요!"
+                                />
                                 <span class="msg"></span>
                             </li>
                             <!-- 이름 -->
                             <li>
                                 <label for="mnm" class="itit">이름</label>
-                                <input type="text" name="mnm" id="mnm" maxlength="20" placeholder="이름을 입력해 주세요!"/>
+                                <input
+                                    type="text"
+                                    name="mnm"
+                                    id="mnm"
+                                    maxlength="20"
+                                    placeholder="이름을 입력해 주세요!"
+                                />
                                 <span class="msg"></span>
                             </li>
                             <!-- 성별 -->
                             <li>
                                 <span class="itit">성별</span>
                                 <label for="gen1">남성</label>
-                                <input type="radio" name="gen" id="gen1" value="m"/>
+                                <input type="radio" name="gen" id="gen1" value="m" />
                                 <label for="gen2">여성</label>
-                                <input type="radio" name="gen" id="gen2" checked value="w"/>
+                                <input
+                                    type="radio"
+                                    name="gen"
+                                    id="gen2"
+                                    value="w"
+                                    checked
+                                />
                                 <!-- 라디오버튼의 name 속성을
                             같은 이름으로 쓰면 그룹핑되어
                             하나만 선택된다! 
-                            
-                            - DB 입력 시 각 선택항목에 value를 써서
-                            선택값을 읽을 수 있게 해야한다!
-                            (남자는 M,  여자는 W)
 
                             checked 속성 - 기본체크설정 -->
                             </li>
@@ -154,10 +170,5 @@
         </div>
         <!-- 3. 하단영역 -->
         <%@ include file="include/info.jsp" %>
-
-        <!-- 위로가기버튼 -->
-        <a href="#" class="tbtn fi fi-angle-up">
-            <span class="ir">위로가기버튼</span>
-        </a>
     </body>
 </html>

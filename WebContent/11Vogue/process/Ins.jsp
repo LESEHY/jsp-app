@@ -78,7 +78,7 @@
      	// 데이터형이름은 대문자로 시작
      	// 예) setString(), setInt(), setDouble(),...
      	jdbc.pstmt.setString(1, mid);
-     	jdbc.pstmt.setString(2, mpw);
+     	jdbc.pstmt.setString(2, shampw);
      	jdbc.pstmt.setString(3, mnm);
      	jdbc.pstmt.setString(4, gen);
      	jdbc.pstmt.setString(5, email1);

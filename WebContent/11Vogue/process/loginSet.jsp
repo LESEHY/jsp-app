@@ -56,7 +56,7 @@
 		jdbc.rs = jdbc.pstmt.executeQuery();
 		// executeQuery() 쿼리실행 메서드
 
-		// 14. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기!
+		// 14. 저장된 결과집합의 레코드가 있다면 next() 메서드가 true임!
 		if (jdbc.rs.next()) {
 			// 1. 비밀번호
 			dbmpw = jdbc.rs.getString("mpw");

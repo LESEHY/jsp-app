@@ -394,20 +394,33 @@ $(() => {
                     email2: $("#email2").val()
                 },
                 // 3. 전송후실행함수
-                function (nes) { // nes 처리페이지의 결과값
-                    console.log("실행결과: ", nes);
+                function (res) { // res 처리페이지의 결과값
+                    res = res.trim(); // 앞뒤공백제거!
+                    console.log("실행결과: ", res);
+                    // 입력 성공시
+                    if(res === "ok"){
+                        // 1. 메시지 띄우기
+                        alert("회원가입을 축하드립니다!");
+                        // 2. 로그인 페이지로 이동하기
+                        location.replace("login.jsp");
+                        // location.replace(이동주소)
+                        // -> 이동후 전페이지 히스토리가 지워진다!
+                        // 따라서 이전 페이지 이동이 안된다!
+
+                        // location.href = "login.jsp";
+                        // location.href = 주소
+                        // 이 방식으로 페이지 이동을 하면
+                        // 페이지 히스토리가 남게 된다
+                        // 이전 페이지로 이동이 가능하고
+                        // 회원가입 정보가 노출 됨
+                    } // if
+                    // 실패시
+                    else{
+                        // 메시지 띄우기
+                        alert("웹마스터에게 문의바랍니다!");
+                    } // else
                 } // 콜백함수
             ); // post메서드
-
-
-
-
-
-
-
-
-
-
 
             // 서브밋하기(폼요소의 action 값으로 페이지 이동)
             // $(".logF").submit();

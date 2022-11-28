@@ -36,17 +36,17 @@
 		String email2 = request.getParameter("email2");
 		
 		// 넘어온값 찍기!
-		out.println(
-			"<h1>" +
-			"♣ mid : " + mid + "<br>" +
-			"♣ mpw : " + mpw + "<br>" +
-			"♣ sha256 : " + shampw + "<br>" +
-			"♣ mnm : " + mnm + "<br>" +
-			"♣ gen : " + gen + "<br>" +
-			"♣ email1 : " + email1 + "<br>" +
-			"♣ seleml : " + seleml + "<br>" +
-			"♣ email2 : " + email2 + "</h1>"
-		);
+// 		out.println(
+// 			"<h1>" +
+// 			"♣ mid : " + mid + "<br>" +
+// 			"♣ mpw : " + mpw + "<br>" +
+// 			"♣ sha256 : " + shampw + "<br>" +
+// 			"♣ mnm : " + mnm + "<br>" +
+// 			"♣ gen : " + gen + "<br>" +
+// 			"♣ email1 : " + email1 + "<br>" +
+// 			"♣ seleml : " + seleml + "<br>" +
+// 			"♣ email2 : " + email2 + "</h1>"
+// 		);
 		
 		// 선택박스 값이 "free"일 경우 email2값을 email2에 입력하고
 		// 아닐경우에 seleml값을 email2에 입력한다!

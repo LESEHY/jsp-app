@@ -375,8 +375,8 @@ $(() => {
 
             $.post(
                 // 1. 전송할페이지
-                "process/ins.jsp",
-                // 2. 전송할데이터
+                "process/Ins.jsp",
+                // 2. 전송할데이터 : 7개의 값을 전달함!
                 {
                     // 1.아이디
                     mid: $("#mid").val(),
@@ -394,7 +394,9 @@ $(() => {
                     email2: $("#email2").val()
                 },
                 // 3. 전송후실행함수
-                function () {}
+                function (nes) { // nes 처리페이지의 결과값
+                    console.log("실행결과: ", nes);
+                } // 콜백함수
             ); // post메서드
 
 

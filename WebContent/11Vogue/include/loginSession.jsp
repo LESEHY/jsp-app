@@ -30,8 +30,11 @@
           // 대상: .sns a:nth-child(5)
           $(".sns a").eq(4)
           .attr("title","로그아웃")
+          .css("color","red")
 
           // 3. 로그아웃 클릭시 로그아웃하기
+          // 주의: linksys.js에 "로그아웃"예외처리필요!
+          // 이것은 안해주면 sns중 하나로 분류되어 404새창이 뜸!
           .click(function(){
               // 비동기통신으로 로그아웃 처리 페이지호출!
               // Ajax - $.post() 로 처리!
@@ -108,13 +111,14 @@
       $("#loginMsg").css({
           position: "absolute",
           width: "400px",
-          top: "1%",
+          top: "5%",
           left: "50%",
           transform: "translateX(-50%)",
           fontSize: "14px",
           fontWeight: "bold",
           textAlign: "center",
-          whiteSpace: "nowrap"
+          whiteSpace: "nowrap",
+          zIndex: "-1"
       }); ////// css //////////
 
 

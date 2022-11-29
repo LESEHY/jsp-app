@@ -49,7 +49,7 @@
                 </header>
                 <!-- 2-2. 갤러리 페이지 컨텐츠 박스 -->
                 <section class="scont">
-                    <form action="process/Ins.jsp" method="post" class="logF">
+                    <form action="process/ins.jsp" method="post" class="logF">
                         <ul>
                             <!-- 아이디 -->
                             <li>
@@ -117,6 +117,9 @@
                                 <!-- 라디오버튼의 name 속성을
                             같은 이름으로 쓰면 그룹핑되어
                             하나만 선택된다! 
+                            
+                            백앤드 처리 페이지에서 value가 있어야 값을 읽어감
+                            (필수)
 
                             checked 속성 - 기본체크설정 -->
                             </li>

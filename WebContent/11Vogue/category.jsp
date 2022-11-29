@@ -37,6 +37,8 @@
         <script src="./js/category.js"></script>
     </head>
     <body>
+    	<!-- 로그인세션처리 인클루드 -->
+        <%@ include file="include/loginSession.jsp" %>
         <!-- 1. 상단영역 -->
         <%@ include file="include/top.jsp" %>
         <!-- 2. 메인영역 -->
@@ -82,11 +84,6 @@
         </div>
         <!-- 3. 하단영역 -->
         <%@ include file="include/info.jsp" %>
-
-        <!-- 위로가기버튼 -->
-        <a href="#" class="tbtn fi fi-angle-up">
-            <span class="ir">위로가기버튼</span>
-        </a>
 
     </body>
 </html>

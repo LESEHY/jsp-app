@@ -18,8 +18,8 @@ public class ListController {
 	// DB연결 클래스 생성
 	JDBConnector jdbc = new JDBConnector();
 
-	// 페이징 클래스 생성
-	Paging pg = new Paging();
+	// 페이징 클래스 생성 : 생성 시 페이징 대상 테이블명을 보낸다!
+	Paging pg = new Paging("member");
 
 	// 페이징 DTO 클래스 생성
 	PagingDTO pgdto = new PagingDTO();
@@ -39,7 +39,7 @@ public class ListController {
 		try {
 
 			// 1. 쿼리문작성 할당
-			String query = "SELECT * FROM `drama_info` ORDER BY `idx` DESC LIMIT ?,?";
+			String query = "SELECT * FROM `member` ORDER BY `idx` DESC LIMIT ?,?";
 
 			// 2. 쿼리문 연결 사용준비하기
 			jdbc.pstmt = jdbc.conn.prepareStatement(query);

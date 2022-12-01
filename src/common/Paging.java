@@ -1,16 +1,17 @@
 package common;
 
 public class Paging {
+	
 	// 페이징 DTO 생성
 	PagingDTO pgdto = new PagingDTO();
 	// DB연결 클래스 생성하기
 	JDBConnector jdbc = new JDBConnector();
-	
+
 	///////////////////////
 	// 생성자 메서드 /////////
+	///////////////////////
 	// 역할: 인스턴스 생성시 바로 실행하므로 기본 변수값을 모두 셋팅한다!
-	public Paging() {
-
+	public Paging(String tbName) { // tbName - 페이징대상테이블
 
 		/********************************* 
 		15. 페이징 링크 생성하기
@@ -28,7 +29,7 @@ public class Paging {
 		try {
 			// 15-1. 전체 레코드 수 구하기
 			// 레코드수 구하기 쿼리
-			String cntQuery = "SELECT COUNT(*) FROM `drama_info`";
+			String cntQuery = "SELECT COUNT(*) FROM " + tbName;
 			// 쿼리를 PreparedStatement에 넣기
 			jdbc.pstmt = jdbc.conn.prepareStatement(cntQuery);
 			// 쿼리실행! -> 개수정보를 리턴받아 ResultSet에 담는다!
@@ -43,7 +44,7 @@ public class Paging {
 			// 15-2. 리스트 그룹수 : 전체개수 ÷ 페이지당개수
 			pgdto.setListGroup(
 					pgdto.getTotalCnt() / pgdto.getOnePageCnt());
-			
+
 			// 15-3. 남은 레코드수 : 전체개수 % 페이지당개수
 			// 나머지 구할땐 %연산자
 			pgdto.setEtcRecord(
@@ -51,9 +52,8 @@ public class Paging {
 
 			// 한계수 체크: 나머지가 있고 없고에 따라 1개차이남
 			pgdto.setLimit(
-					pgdto.getEtcRecord() == 0 ? 
-					pgdto.getListGroup() : pgdto.getListGroup() + 1);
-			
+			pgdto.getEtcRecord() == 0 ? 
+			pgdto.getListGroup() : pgdto.getListGroup() + 1);
 			// 나머지가 있으면 1페이지 더 추가!
 
 
@@ -61,7 +61,6 @@ public class Paging {
 		catch (Exception e) {
 			e.printStackTrace();
 		} /// catch ////
-
 
 		// 콘솔에 찍어보기
 		System.out.println("# 전체개수:" + pgdto.getTotalCnt() + "개");
@@ -107,12 +106,12 @@ public class Paging {
 		return pgdto.getStartNum();
 
 	} ///////////// changeStartNum 메서드 //////////
-	
-	// 사용자정의 메서드 2
-	// 페이징 소스 리턴 메서드
-	// 색깔 페이징 정보에 따라 링크코드를 만들어서 본 html페이지로 리턴
 
+	// 사용자 정의 메서드 2
+	/////////////////////////////
 	//// 페이징 소스 리턴 메서드 /////
+	/////////////////////////////
+	// 역할: 페이징 정보에 따라 실제 링크코드를 만들어서 본 html페이지로 리턴
 	public String makePaging() {
 		// 페이징링크 코드 저장변수
 		String pgCode="";

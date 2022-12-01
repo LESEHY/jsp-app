@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
-    <head> 
+    <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
@@ -35,7 +35,7 @@
         <script src="./js/common.js"></script>
     </head>
     <body>
-   		<!-- 로그인세션처리 인클루드 -->
+    	<!-- 로그인세션처리 인클루드 -->
         <%@ include file="include/loginSession.jsp" %>
         <!-- 1. 상단영역 -->
         <%@ include file="include/top.jsp" %>

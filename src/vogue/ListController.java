@@ -1,4 +1,4 @@
-package drama;
+package vogue;
 
 import common.JDBConnector;
 import common.Paging;
@@ -18,8 +18,8 @@ public class ListController {
 	// DB연결 클래스 생성
 	JDBConnector jdbc = new JDBConnector();
 
-	// 페이징 클래스 생성 : 생성 시 페이징 대상 테이블명을 보낸다!
-	Paging pg = new Paging("drama_info");
+	// 페이징 클래스 생성
+	Paging pg = new Paging();
 
 	// 페이징 DTO 클래스 생성
 	PagingDTO pgdto = new PagingDTO();
@@ -106,12 +106,13 @@ public class ListController {
 						// 조회수정 페이지인 modify.jsp로 갈때
 						// ?idx=유일키값 : Get방식으로 전송함!
 						// pgnum=현재페이지번호 : 추가전송!
-						jdbc.rs.getString("dname") + "</a></td>" + "   <td>" + 
-						jdbc.rs.getString("actors") + "</td>" + "   <td>" + 
-						jdbc.rs.getString("broad") + "</td>" + "   <td>" + 
-						jdbc.rs.getString("gubun") + "</td>" + "   <td>" + 
-						jdbc.rs.getString("stime") + "</td>" + "   <td>" + 
-						jdbc.rs.getString("total") + "</td>" + "</tr>";
+						// 순서대로 : 아이디, 이름, 성별, 이메일1, 이메일2, 권한
+						jdbc.rs.getString("mid") + "</a></td>" + "   <td>" + 
+						jdbc.rs.getString("name") + "</td>" + "   <td>" + 
+						jdbc.rs.getString("gen") + "</td>" + "   <td>" + 
+						jdbc.rs.getString("email1") + "@" +   
+						jdbc.rs.getString("email2") + "</td>" + "   <td>" + 
+						jdbc.rs.getString("auth") + "</td>" + "</tr>";
 
 				// 일련번호증가
 				listNum++;

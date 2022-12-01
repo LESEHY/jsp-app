@@ -13,28 +13,29 @@ import java.security.MessageDigest;
 
 
 public class SHA256 {
-
+	
 	// 소금치기(솔트기법) - 기존 암호화시 특정문자를 섞어서
-	// 예측 불가능하게 만들기 위한 해쉬 암호화의 추가 기법
-	// 좀 더 보안성이 높다!
+	// 예측 불가능하게 만들기 위한 해시암호화의 추가 기법
+	// 좀더 보안성이 높다!!!
 	private final static String salt = "빠글빠글";
-
-	public String encSha256(String pwd) { // 일반문자 비밀번호를 받는다!
+	
+	public String encSha256(String pwd) { // pwd : 일반문자 비밀번호를 받는다!
 
 		// 결과변수
 		String result = "";
 
 		byte[] bytePlain = pwd.getBytes(); // 들어온 문자들을 바이트 단위로 쪼갠다.
 
-		// for (byte b : bytePlain) {
-		// 	System.out.println(b);
-		// }
+//		for (byte b : bytePlain) {
+//			System.out.println(b);
+//		}
 
 		byte[] bytesalt = salt.getBytes();
 
-		// for (byte b : bytesalt) {
-		// 	System.out.println(b);
-		// }
+//		for (byte b : bytesalt) {
+//
+//			System.out.println(b);
+//		}
 
 
 		byte[] bytePlainAndSalt = new byte[bytePlain.length + bytesalt.length];
@@ -62,9 +63,11 @@ public class SHA256 {
 		System.arraycopy(bytesalt, 0, bytePlainAndSalt, bytePlain.length, bytesalt.length);
 
 
-		// for (byte b : bytePlainAndSalt) {
-		// 	System.out.print(b + " ");
-		// }
+//		for (byte b : bytePlainAndSalt) {
+//
+//			System.out.print(b + " ");
+//
+//		}
 
 		try {
 
@@ -79,7 +82,7 @@ public class SHA256 {
 				sb.append(Integer.toHexString((bytedata[i] & 0xFF) + 256).substring(1));
 			}
 
-			// System.out.println(sb.toString());
+//			System.out.println(sb.toString());
 
 			result = sb.toString();
 

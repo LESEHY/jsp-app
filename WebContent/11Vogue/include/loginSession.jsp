@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <% 
-//////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 	// JSP 세션이 셋팅된 경우에 if문 중괄호 안이 표현됨
-       if(session.getAttribute("name")!=null){
-          // 중괄호 열고 맨 아래 JSP 코드블럭에 중괄호를 닫았음
-          // 이 방법은 중간에 HTML,CSS,JS를 그대로 코딩해서
-          // 화면에 바로 출력시키는 방법이다!(out.print로 출력시 복잡함)
-/////////////////////////////////////////////////////////////////////
+	if (session.getAttribute("name") != null) {
+		// 중괄호열고 맨 아래 JSP코드블럭에 중괄호를 닫았음
+		// 이 방법은 중간에 html,css,js를 그대로 코딩해서
+		// 화면에 바로 출력 시키는 방법이다!(out.print로 출력시 복잡함!)
+/////////////////////////////////////////////////////////////
 %>
 <script>
   /*/////////////////////////////////////////////////
@@ -30,11 +30,11 @@
           // 대상: .sns a:nth-child(5)
           $(".sns a").eq(4)
           .attr("title","로그아웃")
-          .css("color","red")
+          .css("color","hotpink")
 
           // 3. 로그아웃 클릭시 로그아웃하기
           // 주의: linksys.js에 "로그아웃"예외처리필요!
-          // 이것은 안해주면 sns중 하나로 분류되어 404새창이 뜸!
+          // 이것을 안해주면 sns중 하나로 분류되어 404새창이 뜸!
           .click(function(){
               // 비동기통신으로 로그아웃 처리 페이지호출!
               // Ajax - $.post() 로 처리!
@@ -51,8 +51,8 @@
                       if(res==="ok"){
 
                           // 메시지
-                          alert("안전하게 로그아웃 되었습니다!");
-                          
+                          alert("안전하게 로그아웃 되었습니다!");                          
+
                           // 첫페이지로 리로드
                           location.replace("index.jsp");
                           
@@ -118,7 +118,7 @@
           fontWeight: "bold",
           textAlign: "center",
           whiteSpace: "nowrap",
-          zIndex: "-1"
+          zIndex:"-1"
       }); ////// css //////////
 
 
@@ -128,16 +128,22 @@
 </script>
 <%
 /////////////////////////////////////////////////////////////
-// 메시지 - 세션값 읽어오기session.getAttribute() 사용
-String msg = session.getAttribute("name")+"님, 환영합니다!";
-// 권한 세션값 읽어오기
-String auth = session.getAttribute("auth").toString();
-// 로그인 셋팅 JS함수 호출하기!!!
-// 위쪽에 출력되는 JS함수를 호출함
-// loginSet(메시지,권한)
-out.print("<script>loginSet('"+msg+"','"+auth+"');</script>");
+	// 권한 세션값 읽어오기 : 먼저 값을 읽고 권한중 "A"또는"S"이면 
+	// 환영메시지에 "관리자"라는 말을 추가해준다!
+	String auth = session.getAttribute("auth").toString();
+
+	// 어드민이면 "관리자" 할당!
+	String admin = " 회원"; // 일반회원은 "회원님...으로출력"
+	if(auth.equals("A") || auth.equals("S")) admin = " 관리자";
+	
+	// 메시지 세션값 읽어오기 - session.getAttribute() 사용
+	String msg = session.getAttribute("name") + admin + "님, 환영합니다!";
+	// 로그인 셋팅 JS함수 호출하기!!!
+	// 위쪽에 출력되는 JS함수를 호출함
+	// loginSet(메시지,권한)
+	out.print("<script>loginSet('" + msg + "','" + auth + "');</script>");
 
 } /////// if //////////////
-// 맨 위에서 열어놓은 if문이 여기서 닫힘! 여기까지 세션셋팅시 출력됨!
+// 맨위에서 열어놓은 if문이 여기서 닫힘! 여기까지 세션셋팅시 출력됨!
 ////////////////////////////////////////////////////////////////
 %>

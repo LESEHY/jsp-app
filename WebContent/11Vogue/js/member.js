@@ -113,49 +113,49 @@ $(() => {
 
                 $.ajax({
                     // 1. 전송할페이지
-                    url: "process/chkID.jsp",
+                    url:"process/chkID.jsp",
 
                     // 2. 전송방식(get/post)
-                    type: "post",
+                    type:"post",
 
                     // 3. 보낼데이터 : 아이디만 보냄
-                    data: {
+                    data:{
                         mid: $("#mid").val()
                     },
 
                     // 4. 전송할데이터타입
-                    dataType: "html",
+                    dataType:"html",
 
                     // 5. 비동기옵션(실행시점을 본 페이지와 맞추는옵션)
-                    async: false,
+                    async:false,
                     // 비동기 옵션을 꺼야(false)
                     // 전역변수 pass에 값을 넣을 수 있다!
 
                     // 6. 성공처리
-                    success: function (res) {
-                        res = res.trim(); // 앞뒤공백제거
-                        console.log("결과:", res);
-                        if (res === "ok") { // 아이디사용가능
+                    success:function(res){
+                        res = res.trim();// 앞뒤공백제거
+                        console.log("결과:",res);
+                        if(res==="ok"){ // 아이디사용가능
                             // 메시지 띄우기
                             $("#mid")
-                                .siblings(".msg")
-                                .text("훌륭한 아이디네요~!")
-                                .addClass("on"); //글자녹색
+                            .siblings(".msg")
+                            .text("훌륭한 아이디네요~!")
+                            .addClass("on"); //글자녹색
                         } /////// if ////////
-                        else if (res === "no") { //기존에 있음
+                        else if(res==="no"){//기존에 있음
                             // 메시지 띄우기
                             $("#mid")
-                                .siblings(".msg")
-                                .text("사용중인 아이디입니다!")
-                                .removeClass("on"); //빨간글자
+                            .siblings(".msg")
+                            .text("사용중인 아이디입니다!")
+                            .removeClass("on"); //빨간글자
 
                             // 불통과 업데이트 필수!!!
                             pass = false;
 
                         } //////// else if /////////
-                        else { // 기타 에러시
-                            alert("웹마스터에게 문의바랍니다" + res);
-
+                        else{ // 기타 에러시
+                            alert("웹마스터에게 문의바랍니다"+res);
+                            
                             // 불통과 업데이트 필수!!!
                             pass = false;
                         } ///////// else /////////
@@ -164,8 +164,8 @@ $(() => {
                     // xhr - XMLRequest 객체
                     // status - 실패상태코드번호
                     // error - 에러결과 메시지
-                    error: function (xhr, status, error) {
-                        alert("비동기처리 실패:" + error);
+                    error: function(xhr,status,error){
+                        alert("비동기처리 실패:"+error);
                         // 불통과 업데이트 필수!!!
                         pass = false;
                     } ///////// error /////////////
@@ -471,10 +471,10 @@ $(() => {
                 },
                 // 3.전송후실행함수
                 function (res) { // res 처리페이지의 결과값
-                    res = res.trim(); //앞뒤공백제거!
-                    console.log("실행결과:", res);
+                    res = res.trim();//앞뒤공백제거!
+                    console.log("실행결과:",res);
                     // 입력 성공시 //
-                    if (res === "ok") {
+                    if(res === "ok") {
                         // 1. 메시지 띄우기
                         alert("회원가입을 축하드립니다! 짝짝짝!!!");
                         // 2. 로그인 페이지로 이동하기
@@ -492,9 +492,9 @@ $(() => {
 
                     } ///// if ////
                     // 실패시 /////
-                    else {
+                    else{
                         // 메시지 띄우기
-                        alert("웹마스터에게 문의바랍니다!");
+                            alert("웹마스터에게 문의바랍니다!");
                     } ///// else ///
                 } ////// 콜백함수 //////
             ); ///////// post 메서드 ////////////////

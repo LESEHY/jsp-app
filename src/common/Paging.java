@@ -29,7 +29,7 @@ public class Paging {
 		try {
 			// 15-1. 전체 레코드 수 구하기
 			// 레코드수 구하기 쿼리
-			String cntQuery = "SELECT COUNT(*) FROM " + tbName;
+			String cntQuery = "SELECT COUNT(*) FROM "+ tbName;
 			// 쿼리를 PreparedStatement에 넣기
 			jdbc.pstmt = jdbc.conn.prepareStatement(cntQuery);
 			// 쿼리실행! -> 개수정보를 리턴받아 ResultSet에 담는다!

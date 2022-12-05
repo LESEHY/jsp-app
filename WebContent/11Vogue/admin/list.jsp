@@ -69,6 +69,10 @@
 		String pgNum = request.getParameter("pgnum");
 		if(pgNum==null) pgNum="1";
 		
+		// 검색어관련 파라미터 받기(만약없으면 null값으로 셋팅됨!)
+		String pmCol = request.getParameter("col");
+		String pmKey = request.getParameter("key");
+		
 		// 리스트 컨트롤러 생성하기 ////
 		ListController listcon = new ListController(); 
 
@@ -79,7 +83,7 @@
         <!--테이블 본문-->
         <!--tbody는 일반 테이블에 안써도 출력됨-->
         <tbody>
-            <%=listcon.setList(pgNum)%>
+            <%=listcon.setList(pgNum,pmCol,pmKey)%>
         </tbody>
         
         <!--테이블 끝줄-->
@@ -90,6 +94,17 @@
         </tfoot>
    
     </table>
+    
+    <!-- 검색박스 -->
+    <div class="gubun" style= "text-align:center; padding:15px 0">
+    <!-- 검색항목 선택 select박스 -->
+    <select name="selcol" id="selcol">
+    	<option value="name">이름</option>
+    	<option value="mid">아이디</option>
+    </select> 
+    <input type="text" name="keyword" id="keyword">
+    <button id="sbtn">검색하기</button>
+    
 
 
 
@@ -109,7 +124,17 @@
     <script src="../js/jquery-3.6.1.min.js"></script>
     <script>
     $(()=>{ ///////// jQB ///////////////
-    	// 3. 로그아웃 클릭시 로그아웃하기
+    	$("#sbtn").click(function(){
+    		// 1-1: 검색항목 불러오기
+    		let col = $("#selcol").val();
+    		// 1-2. 검색 키워드 읽어오기
+    		let key = $("#keyword").val();
+    		// 1-3. 검색어 관련 파라미터로 list 페이지 다시 호출하기
+    		// 검색항목 : col=값 / 검색어 : key=값
+    		location.href = "list.jsp?pgnum<%=pgNum%>&col="+col+"&key="+key;
+    	}); // click
+    	
+    	// 2. 로그아웃 클릭시 로그아웃하기
         // 주의: linksys.js에 "로그아웃"예외처리필요!
         // 이것을 안해주면 sns중 하나로 분류되어 404새창이 뜸!
         $("#lobtn").click(function(){

@@ -30,16 +30,32 @@ public class ListController {
 	///////////////////////////////////
 	// 리스트 뷰를 구성하여 리턴하는 메서드 ///
 	///////////////////////////////////
-	public String setList(String pgNum) {
-		// pgNum은 리스트 페이지에서 생성시 파라미터값을 전달해 준다!
-
+	// pgNum은 리스트 페이지에서 생성시 파라미터값을 전달해 준다!
+	// 검색어 관련 파라미터 pmCol, pmKey를 전달해 준다!
+	public String setList(String pgNum, String pmCol, String pmKey) {
+		// pgNum - 페이지번호 / pmCol - 검색항목 / pmKey - 검색어
+		
+		// 파라미터 전달값 확인 
+		System.out.println("페이지번호:" + pgNum
+				+"\n검색항목:"+pmCol+"\n검색어:"+pmKey);
+		
 		// DB레코드결과변수
 		String result = "";
 
 		try {
 
 			// 1. 쿼리문작성 할당
-			String query = "SELECT * FROM `member` ORDER BY `idx` DESC LIMIT ?,?";
+			String query = 
+					"SELECT * FROM `member` "+
+					"ORDER BY `name` ASC LIMIT ?,?";
+			
+			// 1.5. 만약 검색어가 있으면 쿼리 변경!
+			if(pmKey!=null) {
+				query = "SELECT * FROM `member` \n"
+						+ "WHERE `name` \n"
+						+ "LIKE \"%영%\" ORDER BY `name` ASC LIMIT ?,?";
+				System.out.println("널이 아냐!");
+			}
 
 			// 2. 쿼리문 연결 사용준비하기
 			jdbc.pstmt = jdbc.conn.prepareStatement(query);

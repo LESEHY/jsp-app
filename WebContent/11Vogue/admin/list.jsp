@@ -76,14 +76,25 @@
 		// 리스트 컨트롤러 생성하기 ////
 		ListController listcon = new ListController(); 
 
-		
+		// 결과 리스트를 변수에 할당
+		String showList = listcon.setList(pgNum,pmCol,pmKey);
 		/////////////////////////////////////////////////
 		%>
 
         <!--테이블 본문-->
         <!--tbody는 일반 테이블에 안써도 출력됨-->
         <tbody>
-            <%=listcon.setList(pgNum,pmCol,pmKey)%>
+            <%
+            	// 결과가 없을 경우 표시코드 생성
+            	if(showList.equals("")){
+            		out.print(
+            			"<tr><td style=\"text-align:center\" "
+            		    +"colspan=\"6\">데이터가 없습니다!</td></tr>");
+            	}
+            	else{
+            		out.print(showList);
+            	}
+            %>
         </tbody>
         
         <!--테이블 끝줄-->
@@ -124,6 +135,14 @@
     <script>
     $(()=>{ ///////// jQB ///////////////
     	
+    	// 키워드 검색 엔터시 버튼클릭 트리거 발생!       
+        $("#keyword").focus().keypress(function(e) {
+             if (e.keyCode === 13) {
+               e.preventDefault();
+               $("#sbtn").trigger("click");
+             }
+           });
+    	
     	// 파라미터 가져오기 메서드
         $.urlParam = function(name) {
            let results = new RegExp('[\?&]' 
@@ -158,6 +177,7 @@
     		// 검색항목 : col=값 / 검색어 : key=값
     		location.href =  
     			"list.jsp?pgnum=<%=pgNum%>&col="+col+"&key="+key;
+    		// 검색후 리스트는 첫페이지로 무조건 나오게함!
     		
     	}); ///////// click ////////////
     	

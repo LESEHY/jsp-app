@@ -3,7 +3,6 @@ package vogue;
 import common.JDBConnector;
 import common.Paging;
 import common.PagingDTO;
-
 /////////////////////////////////////
 // MVC 모델에서 컨트롤러 역할을 하는 클래스//
 /////////////////////////////////////
@@ -19,8 +18,8 @@ public class ListController {
 	JDBConnector jdbc = new JDBConnector();
 
 	// 페이징 클래스 생성 : 생성시 페이징 대상 테이블명을 보낸다!
-	Paging pg = null; //기본 선언만 하고 
-	// 아래 setList 메서드에서 3가지 값을 보내준다!
+	Paging pg = null; // 기본 선언만 하고 
+	// 아래 setList메서드에서 3가지 값을 보내준다!
 	
 
 	// 페이징 DTO 클래스 생성
@@ -34,15 +33,15 @@ public class ListController {
 	///////////////////////////////////
 	// pgNum은 리스트 페이지에서 생성시 파라미터값을 전달해 준다!
 	// 검색어 관련 파라미터 pmCol, pmKey 를 전달해 준다!
-	public String setList(String pgNum, String pmCol, String pmKey) {
-		// pgNum - 페이지번호 / pmCol - 검색항목 / pmKey - 검색어
+	public String setList(String pgNum,String bkNum, String pmCol, String pmKey) {
+		// pgNum - 페이지번호 / bkNum - 페이징블록번호 / pmCol - 검색항목 / pmKey - 검색어
 
 		// 파라미터 전달값 확인!
-		System.out.println("페이지번호:"+pgNum
+		System.out.println("페이지번호:"+pgNum+"\n블록번호:"+bkNum
 				+"\n검색항목:"+pmCol+"\n검색어:"+pmKey);
 		
 		// 페이징 생성자함수 호출!
-		pg = new Paging("member",pmCol,pmKey);
+		pg = new Paging("member",bkNum, pmCol, pmKey);
 		
 		// DB레코드결과변수
 		String result = "";

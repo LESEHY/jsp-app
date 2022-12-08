@@ -69,6 +69,10 @@
 		String pgNum = request.getParameter("pgnum");
 		if(pgNum==null) pgNum="1";
 		
+		// 페이징블록 파라미터 받기(만약없으면 null이므로 "1"할당!)
+		String bkNum = request.getParameter("bknum");
+		if(bkNum==null) bkNum="1";
+		
 		// 검색어관련 파라미터 받기(만약없으면 null값으로 셋팅됨!)
 		String pmCol = request.getParameter("col");
 		String pmKey = request.getParameter("key");
@@ -77,7 +81,8 @@
 		ListController listcon = new ListController(); 
 
 		// 결과 리스트를 변수에 할당
-		String showList = listcon.setList(pgNum,pmCol,pmKey);
+		String showList = listcon.setList(pgNum,bkNum,pmCol,pmKey);
+		
 		/////////////////////////////////////////////////
 		%>
 
@@ -87,10 +92,10 @@
             <%
             	// 결과가 없을 경우 표시코드 생성
             	if(showList.equals("")){
-            		out.print(
-            			"<tr><td style=\"text-align:center\" "
-            		    +"colspan=\"6\">데이터가 없습니다!</td></tr>");
+            		out.print("<tr><td style=\"text-align:center\" "
+            	        	+"colspan=\"6\">데이터가 없습니다!</td></tr>");
             	}
+            	// 결과 리스트가 있는 경우 출력
             	else{
             		out.print(showList);
             	}
@@ -100,7 +105,7 @@
         <!--테이블 끝줄-->
         <tfoot>
             <tr>
-                <td colspan="6">◀ <%=listcon.setPaging()%> ▶</td>
+                <td colspan="6"><%=listcon.setPaging()%></td>
             </tr>
         </tfoot>
    
@@ -134,38 +139,38 @@
     <script src="../js/jquery-3.6.1.min.js"></script>
     <script>
     $(()=>{ ///////// jQB ///////////////
+    	// 키워드 검색 엔터시 버튼클릭 트리거 발생!    	
+    	$("#keyword").focus().keypress(function(e) {
+   		  if (e.keyCode === 13) {
+   		    e.preventDefault();
+   		    $("#sbtn").trigger("click");
+   		  }
+   		});
     	
-    	// 키워드 검색 엔터시 버튼클릭 트리거 발생!       
-        $("#keyword").focus().keypress(function(e) {
-             if (e.keyCode === 13) {
-               e.preventDefault();
-               $("#sbtn").trigger("click");
-             }
-           });
     	
-    	// 파라미터 가져오기 메서드
-        $.urlParam = function(name) {
-           let results = new RegExp('[\?&]' 
-                 + name + '=([^&#]*)').exec(window.location.href);
-           if (results==null) {
-               return null;
-           } else {
-               return results[1] || 0;
-           }
-       } ///////// urlParam 함수 ////////
-        
+    	// 파라미터 가져오기 메서드 //////////
+    	$.urlParam = function(name) {
+		    let results = new RegExp('[\?&]' 
+		    		+ name + '=([^&#]*)').exec(window.location.href);
+		    if (results==null) {
+		        return null;
+		    } else {
+		        return results[1] || 0;
+		    }
+		} ///////// urlParam 함수 ////////
     	
+
     	// 검색요소 변수할당
-        let selcol = $("#selcol");
-        let keyword = $("#keyword");
-        
-        // 넘어온 파라미터에 key값이 있으면!
-        if($.urlParam("key")!= null){
-           // val(값) - 선택요소에 값 셋팅!
-           selcol.val($.urlParam("col"));
-           keyword.val(decodeURIComponent($.urlParam("key")));
-           // decodeURIComponent() -> 2byte 한글 안깨지게 처리
-        }
+    	let selcol = $("#selcol");
+    	let keyword = $("#keyword");
+    	
+    	// 넘어온 파라미터에 key값이 있으면!
+    	if($.urlParam("key")!= null){
+    		// val(값) - 선택요소에 값 셋팅!
+    		selcol.val($.urlParam("col"));
+    		keyword.val(decodeURIComponent($.urlParam("key")));
+    		// decodeURIComponent() -> 2byte 한글 안깨지게 처리
+    	}
     	
     	// 1. 검색버튼 클릭시 처리하기
     	$("#sbtn").click(function(){
@@ -175,8 +180,8 @@
     		let key = keyword.val();
     		// 1-3.검색어관련 파라미터로 list페이지 다시호출하기
     		// 검색항목 : col=값 / 검색어 : key=값
-    		location.href =  
-    			"list.jsp?pgnum=<%=pgNum%>&col="+col+"&key="+key;
+    		location.href = 
+    			"list.jsp?pgnum=1&col="+col+"&key="+key;
     		// 검색후 리스트는 첫페이지로 무조건 나오게함!
     		
     	}); ///////// click ////////////
